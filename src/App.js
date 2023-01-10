@@ -13,11 +13,24 @@ class App extends Component {
     otherContent: "I am other Content",
   };
 
-  changeBookState = () => {
+  changeBookState = (newBookName) => {
     // console.log("Clicked Me!");
     this.setState({
       books: [
-        { bookName: "Last Border", writter: "Cosmoy Bill" },
+        { bookName: newBookName, writter: "Cosmoy Bill" },
+        { bookName: "Sharlok Homes", writter: "Arobindu Gosh" },
+        { bookName: "Raj Prashad", writter: "Omol Kanti" },
+      ],
+    });
+  };
+
+  changeWithInputState = (event) => {
+    // event.preventDefault();
+    // console.log("Event Called!");
+
+    this.setState({
+      books: [
+        { bookName: event.target.value, writter: "Cosmoy Bill" },
         { bookName: "Sharlok Homes", writter: "Arobindu Gosh" },
         { bookName: "Raj Prashad", writter: "Omol Kanti" },
       ],
@@ -25,13 +38,32 @@ class App extends Component {
   };
 
   render() {
+    const style = {
+      border: "solid 1px red",
+      borderRadius: "5px",
+      background: "black",
+      color: "white",
+    };
+    console.log(this.state);
     return (
       <div className="App">
-        <h2>Book List</h2>
+        <h2 style={style}>Book List</h2>
+
+        <p>
+          <button onClick={() => this.changeBookState("Mission Kashmir")}>
+            Change State
+          </button>
+          <input
+            type="text"
+            name="inputChange"
+            onChange={this.changeWithInputState}
+          />
+        </p>
 
         <Book
           bookName={this.state.books[0].bookName}
           writter={this.state.books[0].writter}
+          inputName={this.changeWithInputState}
         />
         <Book
           bookName={this.state.books[1].bookName}
@@ -40,6 +72,7 @@ class App extends Component {
         <Book
           bookName={this.state.books[2].bookName}
           writter={this.state.books[2].writter}
+          change={() => this.changeBookState("Mission Kashmir")}
         />
 
         <p>{this.state.otherContent}</p>
@@ -49,8 +82,6 @@ class App extends Component {
         </Person>
         <Person name="B" age="28" />
         <Person name="C" age="35" /> */}
-
-        <button onClick={this.changeBookState}>Change State</button>
       </div>
     );
   }

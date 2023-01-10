@@ -1,0 +1,7 @@
+.Book {
+    width: 300px;
+    padding: 10px ;
+    margin: 10px auto;
+    border-radius: 5px;
+    border: solid 1px black;
+}
