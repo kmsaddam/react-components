@@ -37,6 +37,16 @@ class App extends Component {
     });
   };
 
+  deleteBookState = (index) => {
+    // console.log("deleted !");
+    // const books = this.state.books;
+    const books = [...this.state.books];
+    books.splice(index, 1);
+    this.setState({
+      books: books,
+    });
+  };
+
   render() {
     const style = {
       border: "solid 1px red",
@@ -48,8 +58,14 @@ class App extends Component {
 
     let bookState = this.state.books;
 
-    const books = this.state.books.map((book) => {
-      return <Book bookName={book.bookName} writter={book.writter} />;
+    const books = this.state.books.map((book, index) => {
+      return (
+        <Book
+          bookName={book.bookName}
+          writter={book.writter}
+          delete={() => this.deleteBookState(index)}
+        />
+      );
     });
 
     console.log(books);
@@ -58,7 +74,7 @@ class App extends Component {
       <div className="App">
         <h2 style={style}>Book List</h2>
 
-        <p>
+        {/* <p>
           <button onClick={() => this.changeBookState("Mission Kashmir")}>
             Change State
           </button>
@@ -67,7 +83,7 @@ class App extends Component {
             name="inputChange"
             onChange={this.changeWithInputState}
           />
-        </p>
+        </p> */}
 
         {books}
 
