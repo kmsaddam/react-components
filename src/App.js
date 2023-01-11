@@ -10,7 +10,7 @@ class App extends Component {
       { id: 2, bookName: "Yellow", writter: "Bisnu Dey" },
       { id: 3, bookName: "Black War", writter: "Mrinmoye Gosh" },
     ],
-    otherContent: "I am other Content",
+    showBooks: true,
   };
 
   changeBookState = (newBookName) => {
@@ -44,6 +44,12 @@ class App extends Component {
     });
   };
 
+  toggleBooks = () => {
+    this.setState({
+      showBooks: !this.state.showBooks,
+    });
+  };
+
   render() {
     const style = {
       border: "solid 1px red",
@@ -55,23 +61,29 @@ class App extends Component {
 
     let bookState = this.state.books;
 
-    const books = this.state.books.map((book, index) => {
-      return (
-        <Book
-          bookName={book.bookName}
-          writter={book.writter}
-          delete={() => this.deleteBookState(index)}
-          key={book.id}
-          inputName={(event) => this.changeWithInputState(event, index)}
-        />
-      );
-    });
+    let books = null;
+    if (this.state.showBooks) {
+      books = this.state.books.map((book, index) => {
+        return (
+          <Book
+            bookName={book.bookName}
+            writter={book.writter}
+            delete={() => this.deleteBookState(index)}
+            key={book.id}
+            inputName={(event) => this.changeWithInputState(event, index)}
+          />
+        );
+      });
+    }
 
     console.log(books);
 
     return (
       <div className="App">
         <h2 style={style}>Book List</h2>
+        <p>
+          <button onClick={this.toggleBooks}>Toggle Books</button>
+        </p>
 
         {/* <p>
           <button onClick={() => this.changeBookState("Mission Kashmir")}>
@@ -84,6 +96,7 @@ class App extends Component {
           />
         </p> */}
 
+        {/* {this.state.showBooks ? books : null} */}
         {books}
 
         {/* <Book
