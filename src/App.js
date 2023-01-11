@@ -44,7 +44,16 @@ class App extends Component {
       background: "black",
       color: "white",
     };
-    console.log(this.state);
+    // console.log(this.state);
+
+    let bookState = this.state.books;
+
+    const books = this.state.books.map((book) => {
+      return <Book bookName={book.bookName} writter={book.writter} />;
+    });
+
+    console.log(books);
+
     return (
       <div className="App">
         <h2 style={style}>Book List</h2>
@@ -60,7 +69,9 @@ class App extends Component {
           />
         </p>
 
-        <Book
+        {books}
+
+        {/* <Book
           bookName={this.state.books[0].bookName}
           writter={this.state.books[0].writter}
           inputName={this.changeWithInputState}
@@ -73,7 +84,7 @@ class App extends Component {
           bookName={this.state.books[2].bookName}
           writter={this.state.books[2].writter}
           change={() => this.changeBookState("Mission Kashmir")}
-        />
+        /> */}
 
         <p>{this.state.otherContent}</p>
 
