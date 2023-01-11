@@ -6,9 +6,9 @@ import Book from "./components/Book";
 class App extends Component {
   state = {
     books: [
-      { bookName: "No Border", writter: "Alen Cross" },
-      { bookName: "Yellow", writter: "Bisnu Dey" },
-      { bookName: "Black War", writter: "Mrinmoye Gosh" },
+      { id: 1, bookName: "No Border", writter: "Alen Cross" },
+      { id: 2, bookName: "Yellow", writter: "Bisnu Dey" },
+      { id: 3, bookName: "Black War", writter: "Mrinmoye Gosh" },
     ],
     otherContent: "I am other Content",
   };
@@ -24,16 +24,13 @@ class App extends Component {
     });
   };
 
-  changeWithInputState = (event) => {
-    // event.preventDefault();
-    // console.log("Event Called!");
-
+  changeWithInputState = (event, index) => {
+    const book = { ...this.state.books[index] };
+    book.bookName = event.target.value;
+    const books = [...this.state.books];
+    books[index] = book;
     this.setState({
-      books: [
-        { bookName: event.target.value, writter: "Cosmoy Bill" },
-        { bookName: "Sharlok Homes", writter: "Arobindu Gosh" },
-        { bookName: "Raj Prashad", writter: "Omol Kanti" },
-      ],
+      books: books,
     });
   };
 
@@ -64,6 +61,8 @@ class App extends Component {
           bookName={book.bookName}
           writter={book.writter}
           delete={() => this.deleteBookState(index)}
+          key={book.id}
+          inputName={(event) => this.changeWithInputState(event, index)}
         />
       );
     });
